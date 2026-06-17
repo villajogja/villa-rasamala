@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Session — Villa Rasamala</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Parisienne&family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:#FBF7EE; --olive:#32372C; --carbon:#121314; --grey:#6B6F68;
+      --gold:#B8952A; --gold-light:#D4B060; --cream-dark:#EDE7D8; --olive-soft:#4A5044;
+      --border:rgba(50,55,44,0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Public Sans',sans-serif; background:var(--cream); color:var(--carbon); font-weight:300; line-height:1.7; }
+
+    /* TOP BAR */
+    .ps-nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.1rem 3.5rem; background:rgba(251,247,238,0.96); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+    .ps-back { display:inline-flex; align-items:center; gap:.5rem; text-decoration:none; color:var(--olive); font-size:12px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; transition:color .25s; }
+    .ps-back:hover { color:var(--gold); }
+    .ps-logo img { height:32px; object-fit:contain; }
+    .ps-book { background:var(--olive); color:var(--cream); border:none; padding:.6rem 1.6rem; font-family:'Public Sans',sans-serif; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; cursor:pointer; transition:background .25s; text-decoration:none; }
+    .ps-book:hover { background:var(--olive-soft); }
+
+    /* HEADER */
+    .ps-header { text-align:center; padding:4.5rem 1.5rem 2.5rem; }
+    .ps-eyebrow { font-size:10px; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:1rem; }
+    .ps-title { font-family:'Public Sans',sans-serif; font-weight:700; font-size:clamp(2rem,4vw,3rem); color:var(--olive); line-height:1.15; margin-bottom:.5rem; }
+    .ps-quote { font-family:'Parisienne',cursive; font-size:clamp(1.5rem,3vw,2.2rem); color:var(--gold); margin-bottom:1rem; }
+    .ps-desc { font-size:14px; color:var(--grey); max-width:50ch; margin:0 auto; line-height:1.8; }
+
+    /* MASONRY */
+    .ps-gallery { columns:4 280px; column-gap:14px; padding:1.5rem 3.5rem 5rem; max-width:1500px; margin:0 auto; }
+    .ps-item { break-inside:avoid; margin-bottom:14px; overflow:hidden; cursor:pointer; background:var(--cream-dark); position:relative; }
+    .ps-item img { width:100%; display:block; transition:transform .5s ease, opacity .3s; }
+    .ps-item:hover img { transform:scale(1.04); }
+    .ps-item::after { content:'⤢'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#fff; font-size:1.5rem; opacity:0; transition:opacity .3s; text-shadow:0 2px 8px rgba(0,0,0,.5); pointer-events:none; }
+    .ps-item:hover::after { opacity:.9; }
+
+    /* CTA STRIP */
+    .ps-cta { background:var(--olive); color:var(--cream); text-align:center; padding:4rem 1.5rem; }
+    .ps-cta h2 { font-family:'Public Sans',sans-serif; font-weight:700; font-size:clamp(1.5rem,3vw,2.2rem); margin-bottom:.5rem; }
+    .ps-cta p { color:rgba(251,247,238,.65); font-size:14px; margin-bottom:1.75rem; }
+    .ps-cta-btn { display:inline-flex; align-items:center; gap:.6rem; background:#25D366; color:#fff; text-decoration:none; padding:.9rem 2.25rem; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; transition:background .25s; }
+    .ps-cta-btn:hover { background:#1ebe5a; }
+
+    /* LIGHTBOX */
+    .lightbox { position:fixed; inset:0; z-index:1000; background:rgba(18,19,20,.92); display:none; align-items:center; justify-content:center; padding:2rem; opacity:0; transition:opacity .3s; }
+    .lightbox.open { display:flex; opacity:1; }
+    .lightbox img { max-width:92vw; max-height:88vh; object-fit:contain; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+    .light-close { position:absolute; top:1.5rem; right:2rem; color:#fff; font-size:2.5rem; background:none; border:none; cursor:pointer; line-height:1; opacity:.8; transition:opacity .2s; }
+    .light-close:hover { opacity:1; }
+
+    .ps-foot { text-align:center; padding:2rem 1.5rem; font-size:11px; color:var(--grey); letter-spacing:.08em; }
+
+    @media (max-width:768px) {
+      .ps-nav { padding:1rem 1.25rem; }
+      .ps-gallery { columns:2 150px; column-gap:8px; padding:1rem 1.25rem 3rem; }
+      .ps-item { margin-bottom:8px; }
+      .ps-back span.full { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="ps-nav">
+  <a href="index.html" class="ps-back">← <span class="full">Kembali ke Beranda</span></a>
+  <a href="index.html?booking=1" class="ps-book">Reservasi</a>
+</nav>
+
+<header class="ps-header">
+  <p class="ps-eyebrow">Photo Session Package</p>
+  <h1 class="ps-title">Momen Indah di Villa Rasamala</h1>
+  <p class="ps-quote">every corner, a backdrop</p>
+  <p class="ps-desc">Galeri hasil photo session di area garden dan interior villa. Tersedia paket foto profesional untuk mengabadikan momen menginap kamu.</p>
+</header>
+
+<div class="ps-gallery">
+        <div class="ps-item" onclick="openLight('images/ps-22.jpg')"><img src="images/ps-22.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-32.jpg')"><img src="images/ps-32.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-15.jpg')"><img src="images/ps-15.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-16.jpg')"><img src="images/ps-16.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-11.jpg')"><img src="images/ps-11.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-44.jpg')"><img src="images/ps-44.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-12.jpg')"><img src="images/ps-12.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-17.jpg')"><img src="images/ps-17.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-25.jpg')"><img src="images/ps-25.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-43.jpg')"><img src="images/ps-43.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-38.jpg')"><img src="images/ps-38.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-40.jpg')"><img src="images/ps-40.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-27.jpg')"><img src="images/ps-27.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-09.jpg')"><img src="images/ps-09.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-01.jpg')"><img src="images/ps-01.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-45.jpg')"><img src="images/ps-45.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-20.jpg')"><img src="images/ps-20.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-13.jpg')"><img src="images/ps-13.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-37.jpg')"><img src="images/ps-37.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-23.jpg')"><img src="images/ps-23.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-28.jpg')"><img src="images/ps-28.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-36.jpg')"><img src="images/ps-36.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-19.jpg')"><img src="images/ps-19.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-02.jpg')"><img src="images/ps-02.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-30.jpg')"><img src="images/ps-30.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-18.jpg')"><img src="images/ps-18.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-29.jpg')"><img src="images/ps-29.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-08.jpg')"><img src="images/ps-08.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-39.jpg')"><img src="images/ps-39.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-31.jpg')"><img src="images/ps-31.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-34.jpg')"><img src="images/ps-34.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-06.jpg')"><img src="images/ps-06.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-03.jpg')"><img src="images/ps-03.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-14.jpg')"><img src="images/ps-14.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-33.jpg')"><img src="images/ps-33.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-41.jpg')"><img src="images/ps-41.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-24.jpg')"><img src="images/ps-24.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-07.jpg')"><img src="images/ps-07.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-35.jpg')"><img src="images/ps-35.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-05.jpg')"><img src="images/ps-05.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-04.jpg')"><img src="images/ps-04.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-42.jpg')"><img src="images/ps-42.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-26.jpg')"><img src="images/ps-26.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-10.jpg')"><img src="images/ps-10.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+        <div class="ps-item" onclick="openLight('images/ps-21.jpg')"><img src="images/ps-21.jpg" loading="lazy" alt="Villa Rasamala photo session"></div>
+</div>
+
+<section class="ps-cta">
+  <h2>Tertarik Photo Session di Villa?</h2>
+  <p>Hubungi Host kami untuk info paket & ketersediaan.</p>
+  <a href="https://wa.me/62882008364644?text=Hai%20admin%20Villa%20Rasamala%2C%20mau%20dong%20menginap%20di%20villa%20sambil%20ambil%20photo%20session%20package" target="_blank" class="ps-cta-btn">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884z"/></svg>
+    Tanya Photo Session
+  </a>
+</section>
+
+<p class="ps-foot">© 2025 Villa Rasamala · Depok, Yogyakarta</p>
+
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLight()">
+  <button class="light-close" onclick="closeLight()">&times;</button>
+  <img id="lightImg" src="" alt="">
+</div>
+
+<script>
+  function openLight(src){ document.getElementById('lightImg').src = src; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLight(){ document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLight(); });
+</script>
+
+</body>
+</html>
