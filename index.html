@@ -236,6 +236,7 @@ section { padding:6rem 3.5rem; scroll-margin-top:72px; }
 .book-row { display:flex; gap:1rem; }
 .book-row .book-field { flex:1; }
 .book-hint { font-size:11px; color:var(--grey); margin-top:.4rem; font-weight:300; }
+.book-time-hint { font-size:11px; color:var(--gold); margin-top:.4rem; font-weight:600; letter-spacing:.01em; }
 .book-extrabed-note { display:none; background:rgba(184,149,42,.1); border:1px dashed rgba(184,149,42,.5); padding:.7rem .9rem; font-size:12px; color:var(--olive); margin-top:-.4rem; margin-bottom:1.1rem; line-height:1.5; }
 .book-extrabed-note.show { display:block; }
 .book-error { color:#c0392b; font-size:12px; margin-bottom:1rem; display:none; }
@@ -260,6 +261,8 @@ section { padding:6rem 3.5rem; scroll-margin-top:72px; }
 .cal-cell.booked { color:#b04a3f; cursor:not-allowed; }
 .cal-cell.booked::after { content:''; position:absolute; width:5px; height:5px; border-radius:50%; background:#c0392b; bottom:5px; left:50%; transform:translateX(-50%); }
 .cal-cell.avail:hover { background:var(--cream-dark); }
+.cal-cell.checkout-only { color:var(--carbon); background:linear-gradient(135deg, rgba(192,57,43,.16) 0 50%, transparent 50% 100%); }
+.cal-cell.checkout-only:hover { background:linear-gradient(135deg, rgba(192,57,43,.16) 0 50%, var(--cream-dark) 50% 100%); }
 .cal-cell.sel-in, .cal-cell.sel-out { background:var(--olive) !important; color:var(--cream) !important; font-weight:700; }
 .cal-cell.in-range { background:rgba(50,55,44,.1); }
 .cal-cell.today { border-color:var(--gold); }
@@ -269,6 +272,7 @@ section { padding:6rem 3.5rem; scroll-margin-top:72px; }
 .cal-dot.d-avail { background:#fff; border:1px solid var(--border); }
 .cal-dot.d-booked { background:#c0392b; }
 .cal-dot.d-sel { background:var(--olive); }
+.cal-dot.d-checkout { background:linear-gradient(135deg, rgba(192,57,43,.35) 0 50%, #fff 50% 100%); border:1px solid var(--border); }
 .cal-status { padding:.6rem .9rem; font-size:11.5px; color:var(--olive); background:rgba(184,149,42,.08); border-top:1px solid var(--border); line-height:1.5; }
 .cal-loading { padding:1.5rem; text-align:center; font-size:12px; color:var(--grey); }
 
@@ -752,6 +756,7 @@ footer { background:var(--olive); padding:2.5rem 3.5rem; display:flex; align-ite
           <span><i class="cal-dot d-avail"></i> Tersedia</span>
           <span><i class="cal-dot d-booked"></i> Sudah dibooking</span>
           <span><i class="cal-dot d-sel"></i> Pilihanmu</span>
+          <span><i class="cal-dot d-checkout"></i> Bisa jadi check-out (tamu lain check-out jam 12.00)</span>
         </div>
       </div>
     </div>
@@ -759,11 +764,13 @@ footer { background:var(--olive); padding:2.5rem 3.5rem; display:flex; align-ite
     <div class="book-row">
       <div class="book-field">
         <label for="bkIn">Check-In <span class="req">*</span></label>
-        <input type="date" id="bkIn">
+        <input type="date" id="bkIn" oninput="updateTimeHint()">
+        <p class="book-time-hint" id="bkInHint">Jam check-in 15.00</p>
       </div>
       <div class="book-field">
         <label for="bkOut">Check-Out <span class="req">*</span></label>
-        <input type="date" id="bkOut">
+        <input type="date" id="bkOut" oninput="updateTimeHint()">
+        <p class="book-time-hint" id="bkOutHint">Jam check-out 12.00</p>
       </div>
     </div>
 
@@ -873,7 +880,21 @@ footer { background:var(--olive); padding:2.5rem 3.5rem; display:flex; align-ite
       var cls = 'cal-cell ';
       var attr = '';
       if(d < today){ cls += 'past'; }
-      else if(calBookedSet[key]){ cls += 'booked'; }
+      else if(calBookedSet[key]){
+        // Tanggal ini malamnya terisi (ada tamu lain nginap malam itu).
+        // TAPI kalau lagi mode pilih check-out (calSelIn sudah dipilih) dan
+        // tidak ada malam terisi di ANTARA check-in s/d tanggal ini, maka
+        // tanggal ini tetap boleh dipilih sebagai check-out — karena berarti
+        // tanggal ini adalah checkout tamu lain (kamar kosong lagi malam itu).
+        var canBeCheckout = calSelIn && key > calSelIn && !rangeHasBooked(calSelIn, key);
+        if(canBeCheckout){
+          cls += 'avail checkout-only';
+          attr = ' onclick="calPick(\''+key+'\')"';
+          if(calSelOut && key === calSelOut) cls += ' sel-out';
+        } else {
+          cls += 'booked';
+        }
+      }
       else {
         cls += 'avail';
         attr = ' onclick="calPick(\''+key+'\')"';
@@ -921,6 +942,7 @@ footer { background:var(--olive); padding:2.5rem 3.5rem; display:flex; align-ite
         // isi field tanggal yang sudah ada
         document.getElementById('bkIn').value = calSelIn;
         document.getElementById('bkOut').value = calSelOut;
+        updateTimeHint();
       }
     }
     renderCal();
@@ -934,6 +956,9 @@ footer { background:var(--olive); padding:2.5rem 3.5rem; display:flex; align-ite
     var iso = today.toISOString().split('T')[0];
     document.getElementById('bkIn').min = iso;
     document.getElementById('bkOut').min = iso;
+    document.getElementById('bkIn').value = '';
+    document.getElementById('bkOut').value = '';
+    updateTimeHint();
     // init kalender ke bulan ini
     calViewYear = today.getFullYear();
     calViewMonth = today.getMonth();
@@ -966,6 +991,27 @@ footer { background:var(--olive); padding:2.5rem 3.5rem; display:flex; align-ite
     var hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     var bln = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
     return hari[d.getDay()] + ', ' + d.getDate() + ' ' + bln[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function fmtTanggalSingkat(val){
+    if(!val) return '';
+    var d = new Date(val + 'T00:00:00');
+    var bln = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    return d.getDate() + ' ' + bln[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  // Update keterangan jam check-in/check-out di bawah masing-masing field tanggal
+  function updateTimeHint(){
+    var inVal = document.getElementById('bkIn').value;
+    var outVal = document.getElementById('bkOut').value;
+    var inHint = document.getElementById('bkInHint');
+    var outHint = document.getElementById('bkOutHint');
+    inHint.textContent = inVal
+      ? 'Check-in ' + fmtTanggalSingkat(inVal) + ', jam 15.00'
+      : 'Jam check-in 15.00';
+    outHint.textContent = outVal
+      ? 'Check-out ' + fmtTanggalSingkat(outVal) + ', jam 12.00'
+      : 'Jam check-out 12.00';
   }
 
   function showBookError(msg){
