@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Klaim Voucher Special Gift Rp250.000 Off — Villa Rasamala</title>
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Parisienne&family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+:root {
+  --cream: #FBF7EE;
+  --olive: #32372C;
+  --carbon: #121314;
+  --grey: #6B6F68;
+  --gold: #B8952A;
+  --gold-light: #D4B060;
+  --cream-dark: #EDE7D8;
+  --olive-soft: #4A5044;
+  --border: rgba(50,55,44,0.15);
+}
+body {
+  font-family: 'Public Sans', sans-serif;
+  background: var(--cream);
+  color: var(--carbon);
+  font-weight: 300;
+  line-height: 1.7;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 2.5rem 1.2rem;
+}
+.voucher-wrap { max-width: 460px; width:100%; }
+.voucher-card {
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow: 0 10px 40px rgba(50,55,44,0.08);
+}
+.voucher-head {
+  background: linear-gradient(135deg, var(--olive), var(--olive-soft));
+  color: var(--cream);
+  padding: 2rem 2rem 1.6rem;
+  text-align:center;
+}
+.voucher-eyebrow {
+  font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  color: var(--gold-light); font-weight:600; margin-bottom:.6rem;
+}
+.voucher-title {
+  font-family:'Cormorant Garamond', serif; font-weight:500;
+  font-size:2rem; line-height:1.15; margin-bottom:.5rem;
+}
+.voucher-sub { font-size:12.5px; color: rgba(251,247,238,0.75); font-weight:300; }
+.voucher-badge {
+  display:inline-block; margin-top:1rem; padding:.45rem 1.1rem;
+  background: var(--gold); color: var(--carbon); font-weight:700;
+  font-size:13px; border-radius:999px; letter-spacing:.03em;
+}
+.voucher-body { padding: 1.8rem 2rem 2.2rem; }
+.form-field { margin-bottom: 1.1rem; }
+.form-field label {
+  display:block; font-size:11.5px; letter-spacing:.05em; text-transform:uppercase;
+  color: var(--grey); font-weight:600; margin-bottom:.4rem;
+}
+.form-field .req { color:#b04a3f; }
+.form-field input {
+  width:100%; padding:.75rem .9rem; border:1px solid var(--border);
+  border-radius:8px; font-family:'Public Sans',sans-serif; font-size:14.5px;
+  color: var(--carbon); background: var(--cream); outline:none;
+  transition: border-color .2s;
+}
+.form-field input:focus { border-color: var(--gold); }
+.form-row { display:flex; gap:.8rem; }
+.form-row .form-field { flex:1; margin-bottom:1.1rem; }
+.form-hint { font-size:10.5px; color: var(--grey); margin-top:.35rem; }
+.voucher-note {
+  background: var(--cream-dark); border-radius:10px; padding:.85rem 1rem;
+  font-size:11.5px; color: var(--olive-soft); margin-bottom:1.3rem; line-height:1.6;
+}
+.photo-reminder {
+  background: rgba(184,149,42,0.12); border:1px dashed var(--gold);
+  border-radius:10px; padding:.9rem 1rem; margin-bottom:1.3rem;
+  font-size:12px; color: var(--olive); line-height:1.6;
+}
+.photo-reminder strong { color: var(--carbon); }
+.photo-reminder .icon { font-size:15px; margin-right:.3rem; }
+.btn-claim {
+  width:100%; padding:1rem; background: var(--gold); color: var(--carbon);
+  border:none; border-radius:10px; font-family:'Public Sans',sans-serif;
+  font-size:14.5px; font-weight:700; letter-spacing:.02em; cursor:pointer;
+  transition: background .2s, transform .15s;
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+}
+.btn-claim:hover { background: var(--gold-light); }
+.btn-claim:active { transform: scale(0.98); }
+.voucher-footer {
+  text-align:center; margin-top:1.4rem; font-size:11px; color: var(--grey);
+}
+.voucher-footer a { color: var(--olive); text-decoration:none; font-weight:600; }
+.err-msg { color:#b04a3f; font-size:11.5px; margin-top:.35rem; display:none; }
+.form-field.has-error input { border-color:#b04a3f; }
+.form-field.has-error .err-msg { display:block; }
+@media (max-width:480px){
+  .voucher-title { font-size:1.65rem; }
+  .voucher-head { padding:1.6rem 1.4rem 1.3rem; }
+  .voucher-body { padding:1.5rem 1.4rem 1.8rem; }
+  .form-row { flex-direction:column; gap:0; }
+}
+</style>
+</head>
+<body>
+
+<div class="voucher-wrap">
+  <div class="voucher-card">
+    <div class="voucher-head">
+      <div class="voucher-eyebrow">Special Gift</div>
+      <div class="voucher-title">Potongan Rp250.000</div>
+      <div class="voucher-sub">Villa Rasamala — Depok, Sleman, Yogyakarta</div>
+      <div class="voucher-badge">🎁 GET Rp250.000 OFF</div>
+    </div>
+    <div class="voucher-body">
+      <div class="voucher-note">
+        Isi data di bawah ini sesuai kartu voucher yang kamu punya. Setelah dikirim, kamu akan diarahkan ke WhatsApp admin untuk konfirmasi booking.
+      </div>
+
+      <form id="voucherForm">
+        <div class="form-field">
+          <label for="vNomor">Nomor Voucher <span class="req">*</span></label>
+          <input type="text" id="vNomor" placeholder="Contoh: RM25-0001" required>
+          <p class="form-hint">Lihat di kartu voucher fisik kamu.</p>
+          <p class="err-msg">Format nomor voucher tidak sesuai, contoh: RM25-0001</p>
+        </div>
+
+        <div class="form-field">
+          <label for="vNama">Nama Lengkap <span class="req">*</span></label>
+          <input type="text" id="vNama" placeholder="Nama kamu" required>
+        </div>
+
+        <div class="form-field">
+          <label for="vWa">Nomor WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="vWa" placeholder="08xxxxxxxxxx" inputmode="numeric" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="vIn">Check-In <span class="req">*</span></label>
+            <input type="date" id="vIn" required>
+          </div>
+          <div class="form-field">
+            <label for="vOut">Check-Out <span class="req">*</span></label>
+            <input type="date" id="vOut" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="vPax">Jumlah Tamu (Pax) <span class="req">*</span></label>
+          <input type="number" id="vPax" min="1" max="30" placeholder="Berapa orang menginap?" inputmode="numeric" required>
+        </div>
+
+        <div class="photo-reminder">
+          <span class="icon">📸</span><strong>Jangan lupa!</strong> Setelah klik tombol di bawah, kamu akan diarahkan ke WhatsApp. Lampirkan juga <strong>foto kartu voucher fisik</strong> kamu di chat itu ya, supaya klaimnya bisa langsung diverifikasi.
+        </div>
+
+        <button type="submit" class="btn-claim">Klaim via WhatsApp →</button>
+      </form>
+
+      <div class="voucher-footer">
+        Pertanyaan? Hubungi <a href="https://wa.me/62882008364644" target="_blank">+62 882-0083-64644</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var WA_NUMBER = '62882008364644';
+
+  function fmtTanggal(val){
+    if(!val) return '';
+    var d = new Date(val + 'T00:00:00');
+    var hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    var bln = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    return hari[d.getDay()] + ', ' + d.getDate() + ' ' + bln[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  document.getElementById('voucherForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var nomorField = document.getElementById('vNomor');
+    var nomor = nomorField.value.trim().toUpperCase();
+    var nomorPattern = /^RM25-\d{4,}$/;
+
+    if(nomor && !nomorPattern.test(nomor)){
+      nomorField.parentElement.classList.add('has-error');
+      return;
+    } else {
+      nomorField.parentElement.classList.remove('has-error');
+    }
+
+    var nama = document.getElementById('vNama').value.trim();
+    var wa   = document.getElementById('vWa').value.trim();
+    var cin  = document.getElementById('vIn').value;
+    var cout = document.getElementById('vOut').value;
+    var pax  = document.getElementById('vPax').value;
+
+    if(!nomor || !nama || !wa || !cin || !cout || !pax){
+      alert('Mohon lengkapi semua data ya.');
+      return;
+    }
+
+    if(new Date(cout) <= new Date(cin)){
+      alert('Tanggal check-out harus setelah tanggal check-in.');
+      return;
+    }
+
+    var pesan = 'Halo Rasamala Villa! 🎁\n\n';
+    pesan += 'Saya mau klaim *Voucher Special Gift Rp250.000 Off*\n\n';
+    pesan += 'Nomor Voucher: ' + nomor + '\n';
+    pesan += 'Nama: ' + nama + '\n';
+    pesan += 'No. WhatsApp: ' + wa + '\n';
+    pesan += 'Check-in: ' + fmtTanggal(cin) + '\n';
+    pesan += 'Check-out: ' + fmtTanggal(cout) + '\n';
+    pesan += 'Jumlah Tamu: ' + pax + ' orang\n\n';
+    pesan += '📸 (Foto kartu voucher fisik saya lampirkan di chat ini)\n\n';
+    pesan += 'Mohon info ketersediaan tanggal & konfirmasi potongan harganya. Terima kasih 🙏';
+
+    var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(pesan);
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
